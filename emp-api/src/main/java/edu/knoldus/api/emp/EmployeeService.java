@@ -17,7 +17,7 @@ public interface EmployeeService extends Service {
     default Descriptor descriptor() {
         return named("employee-service").withCalls(
                 Service.restCall(GET, "/api/employeeDetails/:employeeId", this::getEmployeeDetail)
-                        .withAutoAcl(true)
-        );
+        )
+                        .withAutoAcl(true);
     }
 }
