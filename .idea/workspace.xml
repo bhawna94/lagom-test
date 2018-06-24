@@ -1,14 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="4b211e40-e2a4-4096-b5cc-df188401d96b" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/emp-api/src/main/java/edu/knoldus/api/emp/Employee.java" afterPath="$PROJECT_DIR$/emp-api/src/main/java/edu/knoldus/api/emp/Employee.java" />
-      <change beforePath="$PROJECT_DIR$/emp-api/src/main/java/edu/knoldus/api/emp/EmployeeService.java" afterPath="$PROJECT_DIR$/emp-api/src/main/java/edu/knoldus/api/emp/EmployeeService.java" />
-      <change beforePath="$PROJECT_DIR$/emp-impl/src/main/java/edu/knoldus/impl/emp/EmployeeServiceImpl.java" afterPath="$PROJECT_DIR$/emp-impl/src/main/java/edu/knoldus/impl/emp/EmployeeServiceImpl.java" />
-      <change beforePath="$PROJECT_DIR$/emp-impl/target/classes/edu/knoldus/impl/emp/EmployeeModule.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/emp-impl/target/classes/edu/knoldus/impl/emp/EmployeeServiceImpl.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/emp-impl/target/classes/edu/knoldus/impl/emp/Repository/Operation.class" afterPath="" />
-    </list>
+    <list default="true" id="4b211e40-e2a4-4096-b5cc-df188401d96b" name="Default" comment="" />
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
     <ignored path="$PROJECT_DIR$/emp-api/target/" />
@@ -433,7 +426,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="75" y="-4" width="1303" height="780" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -444,7 +436,7 @@
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.9237947" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.9237947" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25338647" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
