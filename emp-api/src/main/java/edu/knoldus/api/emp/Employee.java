@@ -7,10 +7,10 @@ import lombok.Value;
 @Builder
 public class Employee {
 
-   int employeeId;
-   String employeeName;
-   int age;
-   String gender;
-   float totalDues;
-   String lastPaid;
+    int employeeId;
+    String employeeName;
+    int age;
+    String gender;
+    int totalDues;
+    String lastPaid;
 }
