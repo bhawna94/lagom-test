@@ -20,6 +20,8 @@ public interface EmployeeService extends Service {
 
     ServiceCall<NotUsed, String> deleteEmployeeDetail(int employeeId);
 
+    ServiceCall<NotUsed, String> updateEmployeeDetail(int employeeId, int totalDues);
+
 
 
     @Override
@@ -27,8 +29,8 @@ public interface EmployeeService extends Service {
         return named("employee-service").withCalls(
                 Service.restCall(GET, "/api/employeeDetails/:employeeId", this::getEmployeeDetail),
                 Service.restCall(POST, "/api/addEmployee", this::postEmployeeDetail),
-                Service.restCall(DELETE,"/api/removeEmployee/:employeeId", this::deleteEmployeeDetail)
-
+                Service.restCall(DELETE,"/api/removeEmployee/:employeeId", this::deleteEmployeeDetail),
+                Service.restCall(PUT,"/api/update/eid/:employeeId/total/:totalDues",this::updateEmployeeDetail)
         ).withAutoAcl(true);
 
     }

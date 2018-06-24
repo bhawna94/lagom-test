@@ -38,7 +38,7 @@ public class EmployeeServiceImpl implements EmployeeService {
                         .age(employee.getInt("age"))
                         .gender(employee.getString("gender"))
                         .lastPaid(employee.getString("last_paid"))
-                        .totalDues(employee.getFloat("total_dues")).build()).get())
+                        .totalDues(employee.getInt("total_dues")).build()).get())
                 .exceptionally(throwable -> {
                     Throwable cause = throwable.getCause();
                     if (cause instanceof NoSuchElementException)
@@ -96,5 +96,24 @@ public class EmployeeServiceImpl implements EmployeeService {
                 });
     }
 
+    @Override
+    public ServiceCall<NotUsed, String> updateEmployeeDetail(int employeeId, int totalDues) {
+        return  request -> {
+            List<Integer> listOFEmployeeeId = cassandraSession.selectAll(Operation.ALLUSER)
+                    .thenApply(row -> row.stream().map(x -> x.getInt("e_id"))
+                            .collect(Collectors.toList())).toCompletableFuture().join();
 
+
+            boolean value = listOFEmployeeeId.stream().anyMatch(x -> x == employeeId);
+            if (value) {
+
+                cassandraSession.executeWrite(Operation.UPDATEUSER, totalDues, employeeId);
+                return CompletableFuture.completedFuture("Total_Dues is updated");
+            }
+            return CompletableFuture.completedFuture("User do not exist");
+        };
+    }
 }
+
+
+

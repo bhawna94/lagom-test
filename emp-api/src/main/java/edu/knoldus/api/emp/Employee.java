@@ -11,6 +11,6 @@ public class Employee {
    String employeeName;
    int age;
    String gender;
-   float totalDues;
+   int totalDues;
    String lastPaid;
 }
