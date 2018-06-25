@@ -9,6 +9,7 @@ import static com.lightbend.lagom.javadsl.api.Service.named;
 import static com.lightbend.lagom.javadsl.api.transport.Method.DELETE;
 import static com.lightbend.lagom.javadsl.api.transport.Method.GET;
 import static com.lightbend.lagom.javadsl.api.transport.Method.POST;
+import static com.lightbend.lagom.javadsl.api.transport.Method.PUT;
 
 public interface EmployeeService extends Service {
 
@@ -18,13 +19,16 @@ public interface EmployeeService extends Service {
 
     ServiceCall<NotUsed, String> deleteEmployeeDetail(int employeeId);
 
+    ServiceCall<NotUsed, String> updateEmployeeDetail(int employeeId, int totalDues);
+
 
     @Override
     default Descriptor descriptor() {
         return named("employee-service").withCalls(
                 Service.restCall(GET, "/api/employeeDetails/:employeeId", this::getEmployeeDetail),
-                Service.restCall(POST,"/api/addEmployee",this::postEmployeeDetail),
-                Service.restCall(DELETE,"/api/deleteEmployee/:employeeId",this::deleteEmployeeDetail)
+                Service.restCall(POST, "/api/addEmployee", this::postEmployeeDetail),
+                Service.restCall(DELETE, "/api/deleteEmployee/:employeeId", this::deleteEmployeeDetail),
+                Service.restCall(PUT, "/api/updateEmployee/:employeeId/total/:totalDues", this::updateEmployeeDetail)
         )
                 .withAutoAcl(true);
     }

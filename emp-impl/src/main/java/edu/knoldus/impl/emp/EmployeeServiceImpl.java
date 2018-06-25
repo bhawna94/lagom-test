@@ -44,11 +44,11 @@ public class EmployeeServiceImpl implements EmployeeService {
     public ServiceCall<Employee, String> postEmployeeDetail() {
         return request -> {
             CompletionStage<List<Integer>> employeeIds = cassandraSession.selectAll(Operation.ALLUSER)
-                    .thenApply(row -> row.stream().map(y -> y.getInt("e_id")).collect(Collectors.toList()));
+                    .thenApply(rowList -> rowList.stream().map(row -> row.getInt("e_id")).collect(Collectors.toList()));
 
-            employeeIds.thenCompose(row -> {
-                System.out.println(row);
-                boolean value = row.stream().anyMatch(x -> x == request.getEmployeeId());
+            return employeeIds.thenCompose(listOfEmployeeId -> {
+
+                boolean value = listOfEmployeeId.stream().anyMatch(empId -> empId == request.getEmployeeId());
                 if (!value) {
                     cassandraSession.executeWrite(Operation.ADDUSER, request.getEmployeeId(),
                             request.getAge(),
@@ -57,11 +57,10 @@ public class EmployeeServiceImpl implements EmployeeService {
                             request.getEmployeeName(),
                             request.getTotalDues());
                     return CompletableFuture.completedFuture("inserted");
-                }
-                else
+                } else
                     return CompletableFuture.completedFuture("user already exist");
-            });
-            return CompletableFuture.completedFuture(".....");
+            }).thenApply(message -> message);
+
 
         };
     }
@@ -72,19 +71,38 @@ public class EmployeeServiceImpl implements EmployeeService {
             CompletionStage<List<Integer>> employeeIds = cassandraSession.selectAll(Operation.ALLUSER)
                     .thenApply(row -> row.stream().map(y -> y.getInt("e_id")).collect(Collectors.toList()));
 
-            employeeIds.thenCompose(row -> deleteUser(row,employeeId) );
-            return CompletableFuture.completedFuture("......");
+            return employeeIds.thenCompose(row -> deleteUser(row, employeeId)).thenApply(x -> x);
+            //return CompletableFuture.completedFuture("......");
         };
     }
 
-    public CompletableFuture<String> deleteUser(List<Integer> list, int employeeId){
+    @Override
+    public ServiceCall<NotUsed, String> updateEmployeeDetail(int employeeId, int totalDues) {
+        return request -> {
+            CompletionStage<List<Integer>> employeeIds = cassandraSession.selectAll(Operation.ALLUSER)
+                    .thenApply(row -> row.stream().map(y -> y.getInt("e_id")).collect(Collectors.toList()));
+            return employeeIds.thenCompose(row -> updateUser(row, employeeId, totalDues))
+                    .thenApply(message -> message);
+        };
+    }
+
+    private CompletableFuture<String> updateUser(List<Integer> list, int employeeId, int totalDues) {
+
+        boolean isEmployeeExits = list.stream().anyMatch(element -> element == employeeId);
+        if (isEmployeeExits) {
+            cassandraSession.executeWrite(Operation.UPDATEUSER, totalDues, employeeId);
+            return CompletableFuture.completedFuture("total dues updated");
+        } else
+            return CompletableFuture.completedFuture("No employee exists");
+    }
+
+    private CompletableFuture<String> deleteUser(List<Integer> list, int employeeId) {
 
         boolean value = list.stream().anyMatch(x -> x == employeeId);
-        if(value){
+        if (value) {
             cassandraSession.executeWrite(Operation.DELETEUSER, employeeId);
             return CompletableFuture.completedFuture("user deleted");
-        }
-        else
+        } else
             return CompletableFuture.completedFuture("user does not exist");
     }
 
