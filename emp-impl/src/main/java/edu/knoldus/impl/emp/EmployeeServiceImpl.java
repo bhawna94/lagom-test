@@ -85,7 +85,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         };
     }
 
-    private CompletableFuture<String> updateUser(List<Integer> list, int employeeId, int totalDues) {
+    public CompletableFuture<String> updateUser(List<Integer> list, int employeeId, int totalDues) {
 
         boolean isEmployeeExits = list.stream().anyMatch(element -> element == employeeId);
         if (isEmployeeExits) {
@@ -95,7 +95,7 @@ public class EmployeeServiceImpl implements EmployeeService {
             return CompletableFuture.completedFuture("No employee exists");
     }
 
-    private CompletableFuture<String> deleteUser(List<Integer> list, int employeeId) {
+   public CompletableFuture<String> deleteUser(List<Integer> list, int employeeId) {
 
         boolean isEmployeeExists = list.stream().anyMatch(empId -> empId == employeeId);
         if (isEmployeeExists) {
