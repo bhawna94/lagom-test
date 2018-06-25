@@ -69,10 +69,9 @@ public class EmployeeServiceImpl implements EmployeeService {
     public ServiceCall<NotUsed, String> deleteEmployeeDetail(int employeeId) {
         return request -> {
             CompletionStage<List<Integer>> employeeIds = cassandraSession.selectAll(Operation.ALLUSER)
-                    .thenApply(row -> row.stream().map(y -> y.getInt("e_id")).collect(Collectors.toList()));
+                    .thenApply(rowList -> rowList.stream().map(row -> row.getInt("e_id")).collect(Collectors.toList()));
 
-            return employeeIds.thenCompose(row -> deleteUser(row, employeeId)).thenApply(x -> x);
-            //return CompletableFuture.completedFuture("......");
+            return employeeIds.thenCompose(listOfEmployeeIds -> deleteUser(listOfEmployeeIds, employeeId)).thenApply(message -> message);
         };
     }
 
@@ -80,7 +79,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     public ServiceCall<NotUsed, String> updateEmployeeDetail(int employeeId, int totalDues) {
         return request -> {
             CompletionStage<List<Integer>> employeeIds = cassandraSession.selectAll(Operation.ALLUSER)
-                    .thenApply(row -> row.stream().map(y -> y.getInt("e_id")).collect(Collectors.toList()));
+                    .thenApply(rowList -> rowList.stream().map(row -> row.getInt("e_id")).collect(Collectors.toList()));
             return employeeIds.thenCompose(row -> updateUser(row, employeeId, totalDues))
                     .thenApply(message -> message);
         };
@@ -98,8 +97,8 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     private CompletableFuture<String> deleteUser(List<Integer> list, int employeeId) {
 
-        boolean value = list.stream().anyMatch(x -> x == employeeId);
-        if (value) {
+        boolean isEmployeeExists = list.stream().anyMatch(empId -> empId == employeeId);
+        if (isEmployeeExists) {
             cassandraSession.executeWrite(Operation.DELETEUSER, employeeId);
             return CompletableFuture.completedFuture("user deleted");
         } else
